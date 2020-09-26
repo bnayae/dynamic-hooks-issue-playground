@@ -1,15 +1,21 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import React, { useState } from "react";
+import { IProps, Issue, One, Two } from "../components";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const IndexPage = () => {
+  const [state, setState] = useState<number>(1);
 
-export default IndexPage
+  const props: IProps = { title: `WELCOME ${state}` };
+  return (
+    <>
+      <h1>Hello to dynamic hooks playground</h1>
+      {state === 1 && <One {...props} />}
+      {state === 1 && <Two {...props} />}
+      {state !== 1 && Issue(props)}
+      <button onClick={() => setState((prev: number) => (prev === 1 ? 2 : 1))}>
+        Switch
+      </button>
+    </>
+  );
+};
+
+export default IndexPage;
